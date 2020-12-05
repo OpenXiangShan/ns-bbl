@@ -1,0 +1,88 @@
+/dts-v1/;
+
+/ {
+	#address-cells = < 0x02 >;
+	#size-cells = < 0x02 >;
+	compatible = "freechips,rocketchip-unknown-dev";
+	model = "freechips,rocketchip-unknown";
+
+	L18: soc {
+		#address-cells = < 0x02 >;
+		#size-cells = < 0x02 >;
+		compatible = "freechips,rocketchip-unknown-soc", "simple-bus";
+		ranges;
+
+		L2: clint@2000000 {
+			compatible = "riscv,clint0";
+			interrupts-extended = < 0x01 0x03 0x01 0x07 >;
+			reg = < 0x00 0xa2000000 0x00 0x10000 >;
+			reg-names = "control";
+			clock-frequency-mhz = < 0x1f4 >;
+		};
+
+		L14: serial@60000000 {
+			compatible = "ns16550a";
+			interrupts = < 0x03 >;
+			reg = < 0x00 0xa10003f8 0x00 0x1000 >;
+			reg-names = "control";
+		};
+
+		sdhci: mmc {
+			compatible = "nemu-sdhost";
+			reg = < 0x00 0xa3000000 0x00 0x1000 >;
+		};
+
+		L3: debug-controller@0 {
+			compatible = "sifive,debug-013", "riscv,debug-013";
+			interrupts-extended = < 0x01 0xffff >;
+			reg = < 0x00 0x00 0x00 0x1000 >;
+			reg-names = "control";
+		};
+	};
+
+	chosen {
+		bootargs = "root=/dev/mmcblk0 rootfstype=ext4 ro rootwait earlycon";
+	};
+
+	L11: memory@100000000 {
+		device_type = "memory";
+		reg = < 0x00 0x80000000 0x00 0x2000000 >;
+		phandle = < 0x02 >;
+	};
+
+	L19: cpus {
+		#address-cells = < 0x01 >;
+		#size-cells = < 0x00 >;
+		timebase-frequency = < 0xf4240 >;
+
+		L6: cpu@0 {
+			clock-frequency = < 0x00 >;
+			compatible = "UCAS,COOSCA1.0", "riscv";
+			d-cache-block-size = < 0x40 >;
+			d-cache-sets = < 0x40 >;
+			d-cache-size = < 0x4000 >;
+			d-tlb-sets = < 0x01 >;
+			d-tlb-size = < 0x20 >;
+			device_type = "cpu";
+			i-cache-block-size = < 0x40 >;
+			i-cache-sets = < 0x40 >;
+			i-cache-size = < 0x4000 >;
+			i-tlb-sets = < 0x01 >;
+			i-tlb-size = < 0x20 >;
+			mmu-type = "riscv,sv39";
+			next-level-cache = < 0x02 >;
+			reg = < 0x00 >;
+			riscv,isa = "rv64imafdc";
+			status = "okay";
+			timebase-frequency = < 0xf4240 >;
+			tlb-split;
+
+			L4: interrupt-controller {
+				#interrupt-cells = < 0x01 >;
+				compatible = "riscv,cpu-intc";
+				interrupt-controller;
+				phandle = < 0x01 >;
+			};
+		};
+	};
+};

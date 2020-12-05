@@ -87,7 +87,7 @@ linux: $(LINUX_ELF)
 
 $(LINUX_ELF): | $(LINUX_REPO_PATH) $(ROOTFS_PATH)
 	$(RFS_ENV) $(MAKE) -C $(ROOTFS_PATH)
-	$(RFS_ENV) $(MAKE) -C $(@D) CROSS_COMPILE=riscv64-unknown-linux-gnu- ARCH=riscv vmlinux
+	$(RFS_ENV) $(MAKE) -C $(@D) CROSS_COMPILE=riscv64-unknown-linux-gnu- ARCH=riscv CONFIG_SECTION_MISMATCH_WARN_ONLY=y vmlinux
 	$(RISCV_DUMP) -d $(LINUX_ELF) > $(BBL_BUILD_PATH)/vmlinux.txt
 
 linux-clean:
