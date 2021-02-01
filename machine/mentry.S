@@ -287,9 +287,9 @@ do_reset:
   bnez a4, .LmultiHart
 
   # only start if mip is set
-  csrr a2, mip
-  andi a2, a2, MIP_MSIP
-  beqz a2, .LmultiHart
+  #csrr a2, mip
+  #andi a2, a2, MIP_MSIP
+  #beqz a2, .LmultiHart
 
   # make sure our hart id is within a valid range
   fence
