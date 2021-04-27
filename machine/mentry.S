@@ -253,6 +253,16 @@ do_reset:
   li x29, 0
   li x30, 0
   li x31, 0
+#ifdef S2C
+  jal initUart
+  //jal initDDR
+  jal printInfo
+  csrwi 0x800, 1
+  jal copyAndRun
+#endif
+  .globl _run
+_run:
+  csrwi 0x800, 0
   csrw mscratch, x0
 
   # write mtvec and make sure it sticks

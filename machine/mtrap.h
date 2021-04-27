@@ -3,6 +3,8 @@
 #ifndef _RISCV_MTRAP_H
 #define _RISCV_MTRAP_H
 
+#define S2C
+
 #include "encoding.h"
 
 #ifdef __riscv_atomic

@@ -72,6 +72,7 @@ SECTIONS
   /* End of initialized data segment */
   . = ALIGN(16);
   _edata = .;
+  _data = .;
 
   /*--------------------------------------------------------------------*/
   /* Uninitialized data segment                                         */
@@ -96,6 +97,9 @@ SECTIONS
     *(COMMON)
   }
 
+  _stack_top = ALIGN(0x1000);
+  . = _stack_top + 0x10000;
+  _stack_pointer = .;
   . = ALIGN(0x1000);
   _end = .;
 }

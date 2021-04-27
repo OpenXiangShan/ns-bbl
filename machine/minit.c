@@ -173,11 +173,13 @@ void init_first_hart(uintptr_t hartid, uintptr_t dtb)
 #endif
 
   // Confirm console as early as possible
+#ifndef S2C
   query_uart(dtb);
   query_xuart(dtb);
   query_uartlite(dtb);
   query_uart16550(dtb);
   query_htif(dtb);
+#endif
   printm("bbl loader\r\n");
 
   hart_init();

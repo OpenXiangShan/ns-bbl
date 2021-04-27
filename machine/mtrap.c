@@ -18,6 +18,9 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+extern void __am_uartlite_putchar(unsigned char data);
+extern unsigned char __am_uartlite_getchar();
+
 void __attribute__((noreturn)) bad_trap(uintptr_t* regs, uintptr_t dummy, uintptr_t mepc)
 {
   die("machine mode: unhandlable trap %d @ %p", read_csr(mcause), mepc);
@@ -25,18 +28,20 @@ void __attribute__((noreturn)) bad_trap(uintptr_t* regs, uintptr_t dummy, uintpt
 
 static uintptr_t mcall_console_putchar(uint8_t ch)
 {
-  if (uart) {
-    uart_putchar(ch);
-  } else if (xuart) {
-    xuart_putchar(ch);
-  } else if (uartlite) {
-    uartlite_putchar(ch);
-  } else if (uart16550) {
-    uart16550_putchar(ch);
-  } else if (htif) {
-    htif_console_putchar(ch);
-  }
-  return 0;
+    if (uart) {
+        uart_putchar(ch);
+    } else if (xuart) {
+        xuart_putchar(ch);
+    } else if (uartlite) {
+        uartlite_putchar(ch);
+    } else if (uart16550) {
+        uart16550_putchar(ch);
+    } else if (htif) {
+        htif_console_putchar(ch);
+    } else {
+        __am_uartlite_putchar(ch);
+    }
+    return 0;
 }
 
 void putstring(const char* s)
@@ -81,8 +86,8 @@ static uintptr_t mcall_console_getchar()
     return uart16550_getchar();
   } else if (htif) {
     return htif_console_getchar();
-  } else {
-    return '\0';
+  } else { /* snps */
+    return __am_uartlite_getchar(); 
   }
 }
 
