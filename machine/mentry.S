@@ -263,6 +263,7 @@ do_reset:
   .globl _run
 _run:
   csrwi 0x800, 0
+  jal initBSS
   csrw mscratch, x0
 
   # write mtvec and make sure it sticks
