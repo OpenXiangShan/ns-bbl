@@ -5,7 +5,7 @@ A standalone and integrated repo to build riscv-linux image fitting Nanshan FPGA
 # How To
 
 ```
-git clone <this.git>
+git clone https://github.com/RISCVERS/ns-bbl
 cd ns-bbl
 make init -j # important
 make sw -j
