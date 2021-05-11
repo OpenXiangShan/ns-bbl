@@ -1,0 +1,10 @@
+[submodule "riscv-pk"]
+	path = riscv-pk
+	url = https://github.com/RISCVERS/riscv-pk.git
+[submodule "riscv-linux"]
+	path = riscv-linux
+	url = https://github.com/RISCVERS/riscv-linux.git
+	shallow = true
+[submodule "riscv-rootfs"]
+	path = riscv-rootfs
+	url = https://github.com/OSCPU/riscv-rootfs.git
