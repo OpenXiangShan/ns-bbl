@@ -98,20 +98,18 @@ void writechar(unsigned char data)
   REG_WRITE(THR,data);
 }
 
-unsigned char readchar()
+int readchar()
 {
   unsigned int value;
-  unsigned char recv;
+  int recv;
 
   value = REG_READ(LSR);
-
-  while(!(value & 0x1)) // LSR = 0x1, data ready
-  {
-        uart_delay(100);
-    value = REG_READ(LSR);
+  if (value & 0x1) {
+    recv = REG_READ(RBR);
   }
-
-  recv = REG_READ(RBR);
+  else {
+    recv = -1;
+  }
 
   return recv;
 }
