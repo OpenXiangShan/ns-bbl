@@ -35,8 +35,8 @@ static void mstatus_init()
   if (supports_extension('U'))
     write_csr(mcounteren, -1);
 
-  // Enable software interrupts
-  write_csr(mie, MIP_MSIP);
+  // Enable software interrupts && external interrupts
+  write_csr(mie, MIP_MSIP | MIP_MEIP);
 
   // Disable paging
   if (supports_extension('S'))
@@ -151,7 +151,7 @@ static void hart_plic_init()
         HLS()->plic_s_ie[i] = ULONG_MAX;
      }
   }
-  *HLS()->plic_m_thresh = 1;
+  *HLS()->plic_m_thresh = 0;
   if (HLS()->plic_s_thresh) {
       // Supervisor not always present
       *HLS()->plic_s_thresh = 0;

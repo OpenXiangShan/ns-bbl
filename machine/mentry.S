@@ -67,6 +67,18 @@ trap_vector:
   mret
 
 1:
+  # Is it an external interrupt?
+  li a0, IRQ_M_EXT * 2
+  bne a0, a1, 1f
+
+  # Yes.  Transfer interrupt to S mode
+  li a0, MIP_MEIP
+  csrc mie, a0
+  li a0, MIP_SEIP
+  csrs mip, a0
+  j .Lmret
+
+1:
   # Is it an IPI?
   li a0, IRQ_M_SOFT * 2
   bne a0, a1, .Lbad_trap
