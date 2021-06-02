@@ -257,12 +257,10 @@ do_reset:
   jal initUart
   //jal initDDR
   jal printInfo
-  csrwi 0x800, 1
   jal copyAndRun
 #endif
   .globl _run
 _run:
-  csrwi 0x800, 0
   jal initBSS
   csrw mscratch, x0
 
