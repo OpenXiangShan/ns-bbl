@@ -108,6 +108,7 @@ void boot_other_hart(uintptr_t unused __attribute__((unused)))
   enter_machine_mode(entry, hartid, dtb_output());
 #else /* Run bbl in supervisor mode */
   //protect_memory();
+  flush_tlb();
   enter_supervisor_mode(entry, hartid, dtb_output());
 #endif
 }
@@ -123,6 +124,7 @@ void boot_loader(uintptr_t dtb)
 #endif
   mb();
   /* Use optional FDT preloaded external payload if present */
+  flush_tlb();
   entry_point = kernel_start ? kernel_start : &_payload_start;
   boot_other_hart(0);
 }
