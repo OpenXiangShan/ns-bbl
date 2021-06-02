@@ -109,6 +109,14 @@ static uintptr_t mcall_set_timer(uint64_t when)
   return 0;
 }
 
+static uintptr_t mcall_plic_eoi()
+{
+  clear_csr(mip, MIP_SEIP);
+  set_csr(mie, MIP_MEIP);
+  printm("[debug] into mcall plic_eoi");
+  return 0;
+}
+
 static void send_ipi_many(uintptr_t* pmask, int event)
 {
   _Static_assert(MAX_HARTS <= 8 * sizeof(*pmask), "# harts > uintptr_t bits");
@@ -179,6 +187,8 @@ send_ipi:
       retval = mcall_set_timer(arg0);
 #endif
       break;
+    case SBI_PLIC_EOI:
+      retval = mcall_plic_eoi();
     default:
       retval = -ENOSYS;
       break;
