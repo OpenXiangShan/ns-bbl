@@ -125,8 +125,8 @@ void initUart()
     //REG_WRITE(DLL,0x2);   //0x00 100M/('h36*16) ~=   3125000
     //REG_WRITE(DLL,0x82);   //0x00 20MHz/9600
     //REG_WRITE(DLL,0x6c);   //0x00 200MHz/115200/16
-    REG_WRITE(DLL,0x36);   //0x00 100MHz/115200/16
-    //REG_WRITE(DLL,0xa2);   //0x00 25MHz/9600/16
+    //REG_WRITE(DLL,0x36);   //0x00 100MHz/115200/16
+    REG_WRITE(DLL,0xa2);   //0x00 25MHz/9600/16
     //REG_WRITE(DLL+0x10000*uart_num,0x1);   //0x00 100M/('h36*16) ~= 115200
     REG_WRITE(LCR,0x03);  //0x0c
     REG_WRITE(FCR,0x01);  //0x08  // enable fifo

@@ -12,7 +12,7 @@
 		timebase-frequency = <1000000>;
 		L6: cpu@0 {
 			clock-frequency = <1000000>;
-			compatible = "XiangShan,YanqiHu", "riscv";
+			compatible = "UCAS,COOSCA1.0", "riscv";
 			d-cache-block-size = <64>;
 			d-cache-sets = <64>;
 			d-cache-size = <16384>;

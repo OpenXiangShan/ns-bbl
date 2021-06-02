@@ -113,7 +113,6 @@ static uintptr_t mcall_plic_eoi()
 {
   clear_csr(mip, MIP_SEIP);
   set_csr(mie, MIP_MEIP);
-  printm("[debug] into mcall plic_eoi");
   return 0;
 }
 
