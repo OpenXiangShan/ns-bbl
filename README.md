@@ -1,8 +1,16 @@
-# Nanshan BBL (NSBL?)
+# Nanshan BBL
 
-A standalone and integrated repo to build riscv-linux image fitting Nanshan FPGA prototype.
+Build riscv-linux image fitting Nanshan Chip.
 
-# How To
+# Features
+
+- [x] SPI FLASH
+- [x] UART
+- [x] DDR4
+- [x] GMAC
+- [x] SDMMC
+
+# How-To
 
 ```
 git clone https://github.com/RISCVERS/ns-bbl
@@ -11,4 +19,4 @@ make init -j # important
 make sw -j
 ```
 
-Program `build/linux.bin` into qspi flash for Nanshan FPGA prototype.
+Program `build/linux.bin` into qspi flash for Nanshan Chip.
