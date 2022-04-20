@@ -126,7 +126,12 @@ void initUart()
     //REG_WRITE(DLL,0x82);   //0x00 20MHz/9600
     //REG_WRITE(DLL,0x6c);   //0x00 200MHz/115200/16
     //REG_WRITE(DLL,0x36);   //0x00 100MHz/115200/16
-    REG_WRITE(DLL,0xa2);   //0x00 25MHz/9600/16
+    //REG_WRITE(DLL,0xa2);   //0x00 25MHz/9600/16
+    REG_WRITE(DLL,0x1b);   //0x00 50MHz/115200/16
+    //REG_WRITE(DLL, 0x41);  //0x00 10MHz/9600/16
+    //REG_WRITE(DLL, 0x82);  //0x00 20MHz/9600/16
+    //REG_WRITE(DLL,0xD);  //0x00 2MHz/9600/16
+
     //REG_WRITE(DLL+0x10000*uart_num,0x1);   //0x00 100M/('h36*16) ~= 115200
     REG_WRITE(LCR,0x03);  //0x0c
     REG_WRITE(FCR,0x01);  //0x08  // enable fifo
@@ -151,25 +156,25 @@ void copyAndRun(void)
 {
   extern uint64_t reset_vector[];
   extern uint64_t _run[];
-  extern uint64_t _data[];
+  // extern uint64_t _data[];
   //extern uint64_t _end[];
 
   #define ROM_START 0x10000000
   #define RAM_START 0x80000000
 
-  register uint64_t *romStart asm("t0") = (uint64_t *)(unsigned long long)ROM_START;
+  // register uint64_t *romStart asm("t0") = (uint64_t *)(unsigned long long)ROM_START;
   register uint64_t *ramStart asm("t1") = (uint64_t *)(unsigned long long)RAM_START;
   register uint64_t *start asm("t2") = &reset_vector[0];
-  register uint64_t *end asm("t3") = &_data[0];
+  // register uint64_t *end asm("t3") = &_data[0];
   //register uint64_t *end asm("t3") = &_end[0];
-  uint64_t size = end - start;
+  // uint64_t size = end - start;
 
-  uint64_t i = 0;
-  for (i = 0; i < size; i += 16) {
-     #define MACRO(j) ramStart[i + j] = romStart[i + j]
-     #define MACRO4(j) MACRO(j); MACRO(j + 1); MACRO(j + 2); MACRO(j + 3);
-     MACRO4(0); MACRO4(4); MACRO4(8); MACRO4(12);
-  }
+  // uint64_t i = 0;
+  // for (i = 0; i < size; i += 16) {
+  //    #define MACRO(j) ramStart[i + j] = romStart[i + j]
+  //    #define MACRO4(j) MACRO(j); MACRO(j + 1); MACRO(j + 2); MACRO(j + 3);
+  //    MACRO4(0); MACRO4(4); MACRO4(8); MACRO4(12);
+  // }
 
   register uint64_t *run asm("t4") = &_run[0];
   uint64_t runOffset = run - start;
