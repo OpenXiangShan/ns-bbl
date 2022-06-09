@@ -1,5 +1,8 @@
 set -ex
 
+export RISCV_ROOTFS_HOME=`pwd`/riscv-rootfs
+export SPEC=/nfs/home/share/xs-workloads/spec/spec-all
+
 mkdir -p spec_output
 
 for i in $(cat spec_list)
