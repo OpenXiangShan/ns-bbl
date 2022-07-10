@@ -18,7 +18,7 @@ For Nanhu micro-architecture FPGA prototype under BOSC environment, workflow is 
 
 1. Apply several patches in ./nanhu-patch dir
 
-2. Prepare rootfsimg and configure linux kernel
+2. Prepare rootfsimg and configure linux kernel (./nanhu-linux.config is recommanded)
 
 3. Run either fpga-build.sh or spec-build.sh to build the image
 
