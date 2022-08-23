@@ -113,7 +113,11 @@ linux-clean:
 # Software top-level rules
 #--------------------------------------------------------------------
 
+sw-nanhu: bbl
+	cd build && ../binproc.sh linux.bin data.txt
+
 sw: bbl
+	cd build && ../binproc_nanshan.sh linux.bin && cp data.txt data.txt.nanshan_rocket
 
 sw-clean: bbl-clean linux-clean
 	-$(RFS_ENV) $(MAKE) -C $(ROOTFS_PATH) clean
@@ -123,6 +127,7 @@ init:
 	git submodule update --init           riscv-pk
 	git submodule update --init           riscv-rootfs
 	cp riscv-linux.config riscv-linux/.config
+	sed -i 's/TARBALL = .*/TARBALL = ethtool-4.18.tar.gz/' riscv-rootfs/apps/ethtool/Makefile 
 	@/bin/echo -e "\033[1;31mPlease manually set the RISCV_ROOTFS_HOME environment variable to $(ROOTFS_PATH).\033[0m"
 	mkdir build
 
