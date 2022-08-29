@@ -119,10 +119,10 @@ sw-clean: bbl-clean linux-clean
 	-$(RFS_ENV) $(MAKE) -C $(ROOTFS_PATH) clean
 
 init:
-	git submodule update --init --depth 1 riscv-linux
+	git submodule update --init --depth 3 riscv-linux
 	git submodule update --init           riscv-pk
 	git submodule update --init           riscv-rootfs
-	cp riscv-linux.config riscv-linux/.config
+	$(MAKE) CROSS_COMPILE=$(RISCV_PREFIX) ARCH=riscv -C riscv-linux/ nanhu_fpga_defconfig
 	@/bin/echo -e "\033[1;31mPlease manually set the RISCV_ROOTFS_HOME environment variable to $(ROOTFS_PATH).\033[0m"
 	mkdir build
 
