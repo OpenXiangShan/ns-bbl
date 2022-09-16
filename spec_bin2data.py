@@ -1,12 +1,10 @@
-# Param:
-# First: bin path (dir)
-# Second: data path (dir)
+#! /usr/bin/env python3
 
 import sys
 import os
 
-bin_dir = sys.argv[1]
-data_dir = sys.argv[2]
+bin_dir = "spec_output"
+data_dir = "spec_fpgadata"
 
 spec_list = os.listdir(bin_dir)
 print(spec_list)
