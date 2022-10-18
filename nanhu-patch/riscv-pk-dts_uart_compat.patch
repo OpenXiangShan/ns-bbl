@@ -8,7 +8,7 @@ index feed8b6..0000000
 \ No newline at end of file
 diff --git a/dts/platform.dtsi b/dts/platform.dtsi
 new file mode 100644
-index 0000000..cff0236
+index 0000000..58258d5
 --- /dev/null
 +++ b/dts/platform.dtsi
 @@ -0,0 +1,124 @@
@@ -119,6 +119,7 @@ index 0000000..cff0236
 +            compatible = "riscv,plic0";
 +            interrupt-controller;
 +            interrupts-extended = <&L4 9 &L4 11 &L5 9 &L5 11>;
++            //reg = <0 0xc000000 0 0x4000000>;
 +            reg = <0 0x3c000000 0 0x4000000>;
 +            reg-names = "control";
 +            riscv,max-priority = <7>;
