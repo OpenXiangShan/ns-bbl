@@ -4,6 +4,7 @@ export RISCV_ROOTFS_HOME=`pwd`/riscv-rootfs
 export SPEC=/nfs/home/share/xs-workloads/spec/spec-all
 
 mkdir -p spec_output
+mkdir -p spec_dump
 
 for i in $(cat spec_list)
 do
@@ -14,5 +15,7 @@ do
     python3 ./spec_gen.py $i
     cd -
     make sw -j16
+    mv build/vmlinux.txt spec_dump/vmlinux-$i.txt
+    mv build/bbl.txt spec_dump/bbl-$i.txt
     mv build/linux.bin spec_output/$i.bin
 done

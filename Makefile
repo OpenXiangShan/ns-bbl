@@ -52,6 +52,7 @@ LINUX_REPO_PATH = $(SW_PATH)/riscv-linux
 
 LINUX_ELF_BUILD = $(LINUX_REPO_PATH)/vmlinux
 LINUX_ELF = $(build_dir)/vmlinux
+LINUX_TXT = $(build_dir)/vmlinux.txt
 
 ROOTFS_PATH = $(SW_PATH)/riscv-rootfs
 RFS_ENV = RISCV_ROOTFS_HOME=$(ROOTFS_PATH)
@@ -97,6 +98,7 @@ linux: $(LINUX_ELF)
 
 $(LINUX_ELF): $(LINUX_ELF_BUILD)
 	ln -sf $(abspath $<) $@
+	$(RISCV_DUMP) -d $(LINUX_ELF) > $(LINUX_TXT)
 
 $(LINUX_ELF_BUILD):
 	$(RFS_ENV) $(MAKE) -C $(ROOTFS_PATH)
